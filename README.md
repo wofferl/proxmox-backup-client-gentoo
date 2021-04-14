@@ -1,1 +1,1 @@
-# proxmox-backup-client-gentoo
+# proxmox-backup-client ebuild for gentoo
