@@ -1,0 +1,72 @@
+diff --git a/.cargo/config b/.cargo/config
+index 3b5b6e48..365c3a7d 100644
+--- a/.cargo/config
++++ b/.cargo/config
+@@ -1,5 +1,26 @@
+-[source]
+-[source.debian-packages]
+-directory = "/usr/share/cargo/registry"
+ [source.crates-io]
+-replace-with = "debian-packages"
++replace-with = "vendored-sources"
++
++[source."git://git.proxmox.com/git/pathpatterns.git"]
++git = "git://git.proxmox.com/git/pathpatterns.git"
++replace-with = "vendored-sources"
++
++[source."git://git.proxmox.com/git/proxmox-fuse.git"]
++git = "git://git.proxmox.com/git/proxmox-fuse.git"
++replace-with = "vendored-sources"
++
++[source."git://git.proxmox.com/git/proxmox-apt.git"]
++git = "git://git.proxmox.com/git/proxmox-apt.git"
++replace-with = "vendored-sources"
++
++[source."git://git.proxmox.com/git/proxmox-openid-rs.git"]
++git = "git://git.proxmox.com/git/proxmox-openid-rs.git"
++replace-with = "vendored-sources"
++
++[source."git://git.proxmox.com/git/pxar.git"]
++git = "git://git.proxmox.com/git/pxar.git"
++replace-with = "vendored-sources"
++
++[source.vendored-sources]
++directory = "../cargo_home/gentoo"
++
+diff --git a/Cargo.toml b/Cargo.toml
+index faeed5a3..18c031cb 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -44,7 +44,6 @@ name = "proxmox_backup"
+ path = "src/lib.rs"
+ 
+ [dependencies]
+-apt-pkg-native = "0.3.2"
+ base64 = "0.12"
+ bitflags = "1.2.1"
+ bytes = "1.0"
+@@ -129,6 +128,24 @@ pbs-tape = { path = "pbs-tape" }
+ #proxmox = { path = "../proxmox/proxmox" }
+ #proxmox-http = { path = "../proxmox/proxmox-http" }
+ #pxar = { path = "../pxar" }
++proxmox = { path = "../proxmox/proxmox", features = [ "sortable-macro", "api-macro", "cli", "router", "tfa" ] }
++proxmox-http = { path = "../proxmox/proxmox-http", features = [ "client", "http-helpers", "websocket" ] }
++proxmox-fuse = { path = "../proxmox-fuse" }
++proxmox-io = { path = "../proxmox/proxmox-io" }
++proxmox-lang = { path = "../proxmox/proxmox-lang" }
++proxmox-router = { path = "../proxmox/proxmox-router", features = [ "cli" ] }
++proxmox-schema = { path = "../proxmox/proxmox-schema", features = [ "api-macro" ] }
++proxmox-section-config = { path = "../proxmox/proxmox-section-config" }
++proxmox-tfa = {  path = "../proxmox/proxmox-tfa", features = [ "u2f" ] }
++proxmox-time = { path = "../proxmox/proxmox-time" }
++proxmox-uuid = { path = "../proxmox/proxmox-uuid" }
++proxmox-borrow = { path = "../proxmox/proxmox-borrow" }
++proxmox-apt = { path = "../proxmox-apt" }
++proxmox-openid = { path = "../proxmox-openid-rs" }
++proxmox-acme-rs = { path = "../proxmox-acme-rs" }
++pxar = { path = "../pxar", features = [ "tokio-io" ] }
++pathpatterns = { path = "../pathpatterns" }
++
+ 
+ [features]
+ default = []
